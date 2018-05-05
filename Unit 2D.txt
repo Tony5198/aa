@@ -1,0 +1,163 @@
+Double LL
+struct node
+{
+int data;
+struct node *next,*prev;
+} *start,*nn,*loc,*temp,*tail;
+-------------
+SEA
+void search(int item)
+{
+loc=start;
+while(loc!=NULL)
+{
+if(loc->data==item)
+{
+temp=loc;
+printf("%d is found at %d",item,temp->next);
+break;
+}
+loc=loc->next;
+}
+}
+----
+In B
+void insert_beg(int value)
+{
+nn=malloc(sizeof(struct node));
+ nn->data=value;
+ nn->prev=NULL;
+ if(start==NULL && tail==NULL)
+ { 
+ start=nn;
+ tail=nn;
+ nn->next=NULL;
+ }
+ else
+ { start->prev=nn;
+ nn->next=start;
+ start=nn; } }
+ ------
+ IN E
+ void insert_end(int value)
+ { nn=malloc(sizeof(struct node));
+ nn->data=value;
+ if(start==NULL && tail==NULL)
+ { start=nn; 
+ tail=nn; 
+ nn->next=NULL;
+ nn->prev=NULL; }
+ else {
+ temp=start;
+ while(temp->next!=NULL)
+ { temp=temp->next; }
+ nn->next=NULL; 
+ nn->prev=temp;
+ temp->next=nn;
+ tail=nn;}}
+ ---------
+ In M
+ void insert_after(int item,int value)
+ { nn=malloc(sizeof(struct node));
+ if(start==NULL && tail==NULL) 
+ { start=nn; tail=nn; nn->next=NULL;
+ nn->prev=NULL;} 
+ else { loc=start;
+ while(loc!=NULL) 
+ { if(loc->data==item && loc->next==NULL)
+ { nn->prev=loc;
+ nn->next=loc->next; loc->next=nn;
+ nn->data=value; tail=nn; }
+else if(loc->data==item)
+{
+nn->prev=loc;
+nn->next=loc->next;
+loc->next->prev=nn;
+loc->next=nn;
+nn->data=value;
+}
+loc=loc->next;
+}}}
+----------------
+TF
+void traverse_for()
+{
+temp=start;
+while(temp!=NULL)
+{
+printf("%d\t",temp->data);
+temp=temp->next;
+}
+}
+----------------
+TB
+void traverse_back()
+{
+temp=tail;
+while(temp!=NULL)
+{
+printf("%d\t",temp->data);
+temp=temp->prev;
+}
+}
+-------------
+DE B
+void del_beg()
+{
+temp=start;
+if(start==NULL && tail==NULL)
+{printf("\n List is empty");}
+else if(start==tail)
+{temp=start;
+start=tail=NULL;
+printf("%d is deleted ",temp->data);
+free(temp);}
+else
+{ temp=start;
+start->next->prev=NULL;
+start=start->next;
+printf("%d is deleted ",temp->data);
+free(temp);
+}}
+--------------
+DE E
+void del_end()
+{
+if(start==NULL && tail==NULL)
+{
+printf("\n List is empty");
+}
+else
+{
+temp=tail;
+tail=temp->prev;
+tail->next=NULL;
+printf("\n%d is deleted",temp->data);
+free(temp);
+}
+}
+---------------
+DE M
+void del_after(int item)
+{
+loc=start;
+while(loc!=NULL)
+{
+if(loc->data==item)
+{
+if(loc->next==NULL)
+{
+printf("There is no node to delete");
+break;
+}
+else
+{
+temp=loc->next;
+temp->next->prev=loc;
+loc->next=temp->next;
+printf("\n%d is deleted ",temp->data);
+free(temp);
+}}
+loc=loc->next;
+}
+}

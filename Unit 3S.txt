@@ -1,0 +1,139 @@
+Single LL
+
+struct node
+{
+int data;
+struct node *next;
+} *start,*nn,*loc,*temp,*t;
+
+void traverse()
+{
+loc=start;
+while(loc!=NULL)
+{
+printf("\t %d -> %d",loc->data,loc->next);
+loc=loc->next;
+}
+}
+--
+Insert b
+void insert_beg(int value)
+{
+nn=malloc(sizeof(struct node));
+nn->data=value;
+if(start==NULL)
+{
+start=nn;
+nn->next=NULL;
+}
+else
+{
+nn->next=start;
+start=nn;
+}
+}
+-------
+Insert E
+void insert_end(int value)
+{
+nn=malloc(sizeof(struct node));
+nn->data=value;
+nn->next=NULL;
+if(start==NULL)
+{
+start=nn;
+}
+else
+{
+loc=start;
+while(loc->next!=NULL)
+{
+loc=loc->next;
+}
+loc->next=nn;
+}
+}
+--------
+Insert M
+void insert_after(int item,int value)
+{
+nn=malloc(sizeof(struct node));
+nn->data=value;
+if(start==NULL)
+{
+printf("\n List is empty");
+}
+else
+{
+loc=start;
+while(loc!=NULL)
+{
+if(loc->data==item)
+{
+nn->next=loc->next;
+loc->next=nn;
+}
+loc=loc->next;
+}
+}
+------------------
+Del B
+void del_beg()
+{
+if(start==NULL)
+{
+printf("\n List is empty\n");
+}
+else
+{
+loc=start;
+start=loc->next;
+printf("\n\t %d is deleted from list
+\t \n",loc->data);
+free(loc);
+}
+}
+--------------
+Del E
+void del_end()
+{
+if(start==NULL)
+{
+printf("\n List is empty\n");
+}
+else
+{
+temp=start;
+loc=start;
+while(loc->next!=NULL)
+{
+temp=loc;
+loc=loc->next;
+}
+temp->next=NULL;
+printf("%d is deleted",loc->data);
+free(loc);
+} }
+--------------
+Del M
+void del_after(int value)
+{
+if(start==NULL)
+{
+printf("\nDeletion is not possible");
+}
+else
+{
+loc=start;
+while(loc!=NULL)
+{
+if(loc->data==value)
+{
+temp=loc->next;
+loc->next=temp->next;
+printf("\n%d Element is
+deleted",temp->data);
+free(temp);
+break;
+}}}}
+----------------------------------------------
